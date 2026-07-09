@@ -9,13 +9,14 @@ Analysis period: Mar 13, 2025 → Jul 6, 2026. Nominal risk-free rate = 3.0%.
 ## Repo structure
 
 ```
-├── BAA_Analyse_Marche_Algerien.docx       # Full report (market structure, macro, risk, portfolios) — French
-├── Conclusions.pdf                        # Summary of findings and conclusions
-├── 01_concentration_marche.py             # Market structure & concentration (HHI)
-├── 02_rendement_reel_inflation.py         # Nominal vs real return (Fisher equation)
-├── 03_optimisation_portefeuille.py        # Markowitz optimization / efficient frontier
-├── 04_correlation_liquidite.py            # Correlation vs actual liquidity
-├── 05_dividendes_fx.py                    # Dividends and FX risk exposure
+├── BAA_Prix_Dividendes_Portefeuille_v6.xlsx  # Source data (public market data)
+├── BAA_Analyse_Marche_Algerien.docx      # Full report (market structure, macro, risk, portfolios) — French
+├── Conclusions.pdf                           # Summary of findings and conclusions
+├── 01_concentration_marche.py                # Market structure & concentration (HHI)
+├── 02_rendement_reel_inflation.py            # Nominal vs real return (Fisher equation)
+├── 03_optimisation_portefeuille.py           # Markowitz optimization / efficient frontier
+├── 04_correlation_liquidite.py               # Correlation vs actual liquidity
+├── 05_dividendes_fx.py                       # Dividends and FX risk exposure
 └── requirements.txt
 ```
 
@@ -39,7 +40,7 @@ pip install -r requirements.txt
 
 Each script is self-contained: it reads directly from `BAA_Prix_Dividendes_Portefeuille_v6.xlsx` (sheets: Statistiques, Corrélation, Capitalisation, Volumes BOC, Inflation, Taux de Change depending on the script) — no hardcoded data.
 
-**The source workbook is not included in this repo** (proprietary data). Three ways to point to your own file:
+**The workbook is included in this repo** (public market data — prices, dividends, macro indicators from Bourse d'Alger / Banque d'Algérie / ONS). Clone the repo and run any script as-is: each one automatically finds the `.xlsx` file sitting next to it. Three ways to point to a different copy if needed:
 
 1. Edit `DEFAULT_EXCEL_PATH` at the top of the script.
 2. Set an environment variable before running:
@@ -52,7 +53,7 @@ Each script is self-contained: it reads directly from `BAA_Prix_Dividendes_Porte
    python 01_concentration_marche.py "/path/to/file.xlsx"
    ```
 
-In Jupyter/IPython, just run the cell — the scripts detect the notebook environment and fall back to `DEFAULT_EXCEL_PATH` / `BAA_XLSX_PATH` automatically (no `sys.argv` conflict).
+In Jupyter/IPython, just run the cell — the scripts detect the notebook environment and fall back to the local `.xlsx` file / `BAA_XLSX_PATH` automatically (no `sys.argv` conflict).
 
 Each script locates its tables by column header rather than a fixed row number, so it stays valid if the workbook is updated (new values, inserted rows, etc.).
 
@@ -88,7 +89,7 @@ Période d'analyse : 13/03/2025 → 06/07/2026. Rf nominal = 3,0%.
 
 ### Utilisation
 
-Le classeur source n'est pas inclus dans ce dépôt (données propriétaires). Modifie `DEFAULT_EXCEL_PATH` en haut de chaque script, définis `BAA_XLSX_PATH`, ou passe le chemin en argument — voir la section anglaise ci-dessus pour le détail complet (identique pour les deux langues).
+Le classeur est inclus dans ce dépôt (données publiques de marché). Clone le dépôt et lance n'importe quel script tel quel : chacun retrouve automatiquement le fichier `.xlsx` situé à côté de lui. Pour pointer vers une autre copie : modifie `DEFAULT_EXCEL_PATH` en haut du script, définis `BAA_XLSX_PATH`, ou passe le chemin en argument — voir la section anglaise ci-dessus pour le détail complet (identique pour les deux langues).
 
 ### Méthodologie et limites
 
